@@ -1,10 +1,10 @@
-import React from 'react';
-import './BlocklyComponent.css';
-import { useEffect, useRef } from 'react';
+import React from "react";
+import "./BlocklyComponent.css";
+import { useEffect, useRef } from "react";
 
-import Blockly from 'blockly/core';
-import locale from 'blockly/msg/en';
-import 'blockly/blocks';
+import Blockly from "blockly/core";
+import locale from "blockly/msg/en";
+import "blockly/blocks";
 
 Blockly.setLocale(locale);
 
@@ -13,27 +13,27 @@ function BlocklyComponent(props) {
   const toolbox = useRef();
   const primaryWorkspace = useRef();
 
-  const theme = Blockly.Theme.defineTheme('themeName', {
-    'base': Blockly.Themes.Classic,
-    'componentStyles': {
-      'workspaceBackgroundColour': "#E7F6D9",
-      'toolboxBackgroundColour': "#E7F6D9",
-      'flyoutBackgroundColour': '#F3F9E1',
-      'flyoutForegroundColour': '#000000',
-      'flyoutOpacity': 0.5,
-      'scrollbarColour': '#91B886',
-      'insertionMarkerColour': '#fff',
-      'insertionMarkerOpacity': 0.3,
-      'scrollbarOpacity': 0.4,
-      'cursorColour': '#d0d0d0',
-      'blackBackground': '#333'
+  const theme = Blockly.Theme.defineTheme("themeName", {
+    base: Blockly.Themes.Classic,
+    componentStyles: {
+      workspaceBackgroundColour: "#E7F6D9",
+      toolboxBackgroundColour: "#E7F6D9",
+      flyoutBackgroundColour: "#F3F9E1",
+      flyoutForegroundColour: "#000000",
+      flyoutOpacity: 0.5,
+      scrollbarColour: "#91B886",
+      insertionMarkerColour: "#fff",
+      insertionMarkerOpacity: 0.3,
+      scrollbarOpacity: 0.4,
+      cursorColour: "#d0d0d0",
+      blackBackground: "#333",
     },
-    'fontStyle ': {
-      'family': "Nanum Gothic",
-      'weight': 'bold',
-      'size': 12
-    }
-    });
+    "fontStyle ": {
+      family: "Nanum Gothic",
+      weight: "bold",
+      size: 12,
+    },
+  });
 
   useEffect(() => {
     const { initialXml, ...rest } = props;
@@ -49,7 +49,7 @@ function BlocklyComponent(props) {
         primaryWorkspace.current,
       );
     }
-  }, [props]);
+  }, [props, theme]);
 
   return (
     <React.Fragment>

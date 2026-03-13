@@ -1,38 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './ButtonList.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { mockTutorials } from "../data/mockData";
+import LoadingSpinner from "../components/LoadingSpinner";
+import "./ButtonList.css";
 
 const TutorialPage = () => {
   const navigate = useNavigate();
-  const [response, setResponse] = useState({ data: [] });
+  const [tutorials, setTutorials] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/tutorial/getAllTutorial');
-        const data = await res.json();
-        setResponse(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+    // 서버 호출 시뮬레이션
+    const loadTutorials = async () => {
+      setLoading(true);
+      // 실제 서버 호출처럼 약간의 지연
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setTutorials(mockTutorials);
+      setLoading(false);
     };
 
-    fetchData();
+    loadTutorials();
   }, []);
 
   const handleBoxClick = (id) => {
-    const concept_eng = response.data.find(item => item.id === id)?.concept_eng;
-    if (concept_eng) {
-      navigate(`/tutorial/${concept_eng}`);
+    const tutorial = tutorials.find((item) => item.id === id);
+    if (tutorial?.concept_eng) {
+      navigate(`/tutorial/${tutorial.concept_eng}`);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="content" style={{ height: "55%" }}>
+        <LoadingSpinner message="튜토리얼을 불러오는 중..." />
+      </div>
+    );
+  }
+
   return (
-    <div className="content" style={{ height: '55%' }}>
+    <div className="content" style={{ height: "55%" }}>
       <div className="box-container">
-        {response.data.map(item => (
-          <div className="box" key={item.id} onClick={() => handleBoxClick(item.id)}>
-            <img src={item.imageUrl} alt={item.problemTitle} className="box-image" />
+        {tutorials.map((item) => (
+          <div
+            className="box"
+            key={item.id}
+            onClick={() => handleBoxClick(item.id)}
+          >
+            <img
+              src={item.imageUrl}
+              alt={item.problemTitle}
+              className="box-image"
+            />
             <div className="title">
               <p>{item.concept}</p>
             </div>

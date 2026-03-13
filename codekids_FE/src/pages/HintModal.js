@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Modal.css';
-import hintstyle from './HintModal.module.css';
+import React, { useState, useEffect, useRef } from "react";
+import "./Modal.css";
+import hintstyle from "./HintModal.module.css";
 
 const HintModal = ({ isOpen, closeModal, body }) => {
   const [fade, setFade] = useState(false);
   const modalContentRef = useRef(null);
-  const [logoTop, setLogoTop] = useState('50%');
+  const [logoTop, setLogoTop] = useState("50%");
 
   useEffect(() => {
     if (!isOpen) {
@@ -22,9 +22,9 @@ const HintModal = ({ isOpen, closeModal, body }) => {
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [isOpen]);
 
@@ -46,12 +46,19 @@ const HintModal = ({ isOpen, closeModal, body }) => {
   if (!isOpen && !fade) return null;
 
   return (
-    <div className={`modal-overlay ${fade ? 'fade-out' : 'fade-in'}`}>
+    <div className={`modal-overlay ${fade ? "fade-out" : "fade-in"}`}>
       <div className="modal-logo" style={{ top: logoTop }}>
-        <img src="/hintrobot.png" style={{ height: '140px' }} />
+        <img src="/hintrobot.png" style={{ height: "140px" }} alt="힌트 로봇" />
       </div>
-      <div ref={modalContentRef} className={`modal-content ${hintstyle.modalContent}`} style={{ padding: '40px' }}>
-        <div className={`modal-title ${hintstyle.modalTitle}`} style={{ color: 'black' }}>
+      <div
+        ref={modalContentRef}
+        className={`modal-content ${hintstyle.modalContent}`}
+        style={{ padding: "40px" }}
+      >
+        <div
+          className={`modal-title ${hintstyle.modalTitle}`}
+          style={{ color: "black" }}
+        >
           <h2>힌트</h2>
         </div>
         <div className={`modal-body ${hintstyle.modalBody}`}>
